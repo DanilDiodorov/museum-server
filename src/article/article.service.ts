@@ -45,7 +45,11 @@ export class ArticleService {
         })
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} article`
+    remove(id: string) {
+        return this.databaseService.article.delete({
+            where: {
+                id,
+            },
+        })
     }
 }
