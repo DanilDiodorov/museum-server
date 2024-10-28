@@ -6,11 +6,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
     app.setGlobalPrefix('/api')
-    // app.enableCors({
-    //     origin: ['*'],
-    //     credentials: true,
-    //     exposedHeaders: 'set-cookie',
-    // })
+    app.enableCors({
+        origin: ['http://localhost:3000', 'https://kutanaschoolmuseum.ru'],
+        credentials: true,
+        exposedHeaders: 'set-cookie',
+    })
     app.use(json({ limit: '50mb' }))
     app.use(urlencoded({ extended: true, limit: '50mb' }))
     const config = new DocumentBuilder().setTitle('Museum').build()
