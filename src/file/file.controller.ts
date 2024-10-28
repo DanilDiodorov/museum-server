@@ -14,10 +14,13 @@ import { diskStorage } from 'multer'
 import { extname, join } from 'path'
 import { existsSync } from 'fs'
 import { Response } from 'express'
+import { ConfigService } from '@nestjs/config'
 
 @ApiTags('File handler')
 @Controller('file')
 export class FileController {
+    constructor(private readonly configService: ConfigService) {}
+
     @Get(':filename')
     async getFile(@Param('filename') filename: string, @Res() res: Response) {
         const uploadPath = join(__dirname, '..', '..', 'uploads')
@@ -62,7 +65,7 @@ export class FileController {
     )
     uploadFile(@UploadedFile() file: Express.Multer.File) {
         return {
-            url: `http://localhost:5000/api/file/${file.filename}`,
+            url: `${this.configService.get<string>('fileUrl')}/${file.filename}`,
         }
     }
 }
