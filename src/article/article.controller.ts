@@ -38,6 +38,7 @@ export class ArticleController {
     }
 
     @Patch(':id')
+    @ApiOkResponse({ type: ArticleDto })
     @ApiParam({ name: 'id', required: true })
     update(
         @Param('id') id: string,

@@ -25,5 +25,6 @@ model Article {
   categoryId String
   title String @unique
   text String
+  description String?
 }
 

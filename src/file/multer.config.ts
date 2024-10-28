@@ -40,6 +40,7 @@ export const multerOptions = {
             if (!existsSync(uploadPath)) {
                 mkdirSync(uploadPath)
             }
+
             cb(null, uploadPath)
         },
         // File modification details

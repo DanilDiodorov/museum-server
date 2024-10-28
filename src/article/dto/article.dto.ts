@@ -11,5 +11,8 @@ export class ArticleDto {
     text: string
 
     @ApiProperty()
+    description?: string
+
+    @ApiProperty()
     categoryId: string
 }

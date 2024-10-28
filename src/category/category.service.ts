@@ -25,8 +25,13 @@ export class CategoryService {
         return `This action returns a #${id} category`
     }
 
-    update(id: number, updateCategoryDto: UpdateCategoryDto) {
-        return `This action updates a #${id} category`
+    update(id: string, updateCategoryDto: UpdateCategoryDto) {
+        return this.databaseService.category.update({
+            where: {
+                id,
+            },
+            data: updateCategoryDto,
+        })
     }
 
     remove(id: string) {

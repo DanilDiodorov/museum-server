@@ -9,4 +9,7 @@ export class CreateArticleDto {
 
     @ApiProperty()
     categoryId: string
+
+    @ApiProperty()
+    description?: string
 }
