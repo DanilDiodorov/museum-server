@@ -32,6 +32,8 @@ jobs:
 
                     # Обновление кода из репозитория
                     git pull
+                    
+                    npx prisma generate
 
                     # Запуск обновления приложения
                     npm run prod:update
