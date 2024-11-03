@@ -6,12 +6,20 @@ import {
     Patch,
     Param,
     Delete,
+    Put,
 } from '@nestjs/common'
 import { ArticleService } from './article.service'
 import { CreateArticleDto } from './dto/create-article.dto'
 import { UpdateArticleDto } from './dto/update-article.dto'
-import { ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger'
+import {
+    ApiBody,
+    ApiOkResponse,
+    ApiParam,
+    ApiResponse,
+    ApiTags,
+} from '@nestjs/swagger'
 import { ArticleDto } from './dto/article.dto'
+import { UpdateArticleIndexDto } from './dto/update-article-index.dto'
 
 @ApiTags('Article')
 @Controller('article')
@@ -45,6 +53,13 @@ export class ArticleController {
         @Body() updateArticleDto: UpdateArticleDto,
     ) {
         return this.articleService.update(id, updateArticleDto)
+    }
+
+    @Put('index')
+    @ApiResponse({ status: 200 })
+    @ApiBody({ type: [UpdateArticleIndexDto] })
+    updateIndex(@Body() items: UpdateArticleIndexDto[]) {
+        return this.articleService.updateIndex(items)
     }
 
     @Delete(':id')

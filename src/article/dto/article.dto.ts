@@ -15,4 +15,7 @@ export class ArticleDto {
 
     @ApiProperty()
     categoryId: string
+
+    @ApiProperty()
+    index: number
 }

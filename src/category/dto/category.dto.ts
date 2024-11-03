@@ -8,6 +8,9 @@ export class CategoryDto {
     @ApiProperty()
     title: string
 
+    @ApiProperty()
+    index: number
+
     @ApiProperty({ type: [ArticleDto] })
     article: ArticleDto[]
 }

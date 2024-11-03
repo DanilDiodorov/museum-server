@@ -17,6 +17,7 @@ model Category {
   id  String @id @default(cuid())
   title String
   article Article[]
+  index Int @default(autoincrement())
 }
 
 model Article {
@@ -26,5 +27,6 @@ model Article {
   title String @unique
   text String
   description String?
+  index Int @default(autoincrement())
 }
 

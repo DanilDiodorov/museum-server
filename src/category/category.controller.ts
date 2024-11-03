@@ -6,12 +6,14 @@ import {
     Patch,
     Param,
     Delete,
+    Put,
 } from '@nestjs/common'
 import { CategoryService } from './category.service'
 import { CreateCategoryDto } from './dto/create-category.dto'
 import { UpdateCategoryDto } from './dto/update-category.dto'
-import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CategoryDto } from './dto/category.dto'
+import { UpdateCategoryIndexDto } from './dto/update-category-index.dto'
 
 @ApiTags('Category')
 @Controller('category')
@@ -45,6 +47,13 @@ export class CategoryController {
         @Body() updateCategoryDto: UpdateCategoryDto,
     ) {
         return this.categoryService.update(id, updateCategoryDto)
+    }
+
+    @Put('index')
+    @ApiResponse({ status: 200 })
+    @ApiBody({ type: [UpdateCategoryIndexDto] })
+    updateIndex(@Body() items: UpdateCategoryIndexDto[]) {
+        return this.categoryService.updateIndex(items)
     }
 
     @Delete(':id')

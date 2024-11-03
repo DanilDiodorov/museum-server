@@ -1,0 +1,38 @@
+name: Deploy to Server
+on:
+    push:
+        branches:
+            - main # Укажите вашу основную ветку
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Deploy to server
+              env:
+                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+                  SERVER_IP: ${{ secrets.SERVER_IP }}
+                  USERNAME: ${{ secrets.USERNAME }}
+              run: |
+                  echo "$SSH_PRIVATE_KEY" > private_key
+                  chmod 600 private_key
+
+                  ssh -i private_key -o StrictHostKeyChecking=no $USERNAME@$SERVER_IP << 'EOF'
+                    set -e
+                    cd /home/museum/museum-server
+
+                    # Инициализация nvm
+                    export NVM_DIR=~/.nvm
+                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+                    nvm use 22
+
+                    # Обновление кода из репозитория
+                    git pull
+
+                    # Запуск обновления приложения
+                    npm run prod:update
+                  EOF
