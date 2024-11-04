@@ -93,24 +93,24 @@ export class AuthService {
 
         res.cookie(this.REFRESH_TOKEN_NAME, refreshToken, {
             httpOnly: true,
-            domain: 'localhost',
+            domain: 'kutanaschoolmuseum.ru',
             expires: expiresIn,
             // true if production
             secure: true,
             // lax if production
-            sameSite: 'none',
+            sameSite: 'lax',
         })
     }
 
     removeRefreshTokenFromResponse(res: Response) {
         res.cookie(this.REFRESH_TOKEN_NAME, '', {
             httpOnly: true,
-            domain: 'localhost',
+            domain: 'kutanaschoolmuseum.ru',
             expires: new Date(0),
             // true if production
             secure: true,
             // lax if production
-            sameSite: 'none',
+            sameSite: 'lax',
         })
     }
 }
