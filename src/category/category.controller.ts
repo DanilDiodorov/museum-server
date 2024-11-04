@@ -14,12 +14,14 @@ import { UpdateCategoryDto } from './dto/update-category.dto'
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CategoryDto } from './dto/category.dto'
 import { UpdateCategoryIndexDto } from './dto/update-category-index.dto'
+import { Auth } from 'src/auth/decorators/auth.decorator'
 
 @ApiTags('Category')
 @Controller('category')
 export class CategoryController {
     constructor(private readonly categoryService: CategoryService) {}
 
+    @Auth()
     @Post()
     @ApiResponse({ type: CategoryDto })
     create(@Body() createCategoryDto: CreateCategoryDto) {
@@ -39,6 +41,7 @@ export class CategoryController {
         return this.categoryService.findOne(+id)
     }
 
+    @Auth()
     @Patch(':id')
     @ApiResponse({ type: CategoryDto })
     @ApiParam({ name: 'id', required: true })
@@ -49,6 +52,7 @@ export class CategoryController {
         return this.categoryService.update(id, updateCategoryDto)
     }
 
+    @Auth()
     @Put('index')
     @ApiResponse({ status: 200 })
     @ApiBody({ type: [UpdateCategoryIndexDto] })
@@ -56,6 +60,7 @@ export class CategoryController {
         return this.categoryService.updateIndex(items)
     }
 
+    @Auth()
     @Delete(':id')
     @ApiResponse({ type: CategoryDto })
     @ApiParam({ name: 'id', required: true })

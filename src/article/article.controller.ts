@@ -20,12 +20,14 @@ import {
 } from '@nestjs/swagger'
 import { ArticleDto } from './dto/article.dto'
 import { UpdateArticleIndexDto } from './dto/update-article-index.dto'
+import { Auth } from 'src/auth/decorators/auth.decorator'
 
 @ApiTags('Article')
 @Controller('article')
 export class ArticleController {
     constructor(private readonly articleService: ArticleService) {}
 
+    @Auth()
     @Post()
     @ApiOkResponse({ type: ArticleDto })
     create(@Body() createArticleDto: CreateArticleDto) {
@@ -45,6 +47,7 @@ export class ArticleController {
         return this.articleService.findOne(id)
     }
 
+    @Auth()
     @Patch(':id')
     @ApiOkResponse({ type: ArticleDto })
     @ApiParam({ name: 'id', required: true })
@@ -55,6 +58,7 @@ export class ArticleController {
         return this.articleService.update(id, updateArticleDto)
     }
 
+    @Auth()
     @Put('index')
     @ApiResponse({ status: 200 })
     @ApiBody({ type: [UpdateArticleIndexDto] })
@@ -62,6 +66,7 @@ export class ArticleController {
         return this.articleService.updateIndex(items)
     }
 
+    @Auth()
     @Delete(':id')
     @ApiOkResponse({ type: ArticleDto })
     @ApiParam({ name: 'id', required: true })
