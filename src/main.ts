@@ -10,7 +10,11 @@ async function bootstrap() {
     app.setGlobalPrefix('/api')
     app.use(cookieParser())
     app.enableCors({
-        origin: ['http://localhost:3000', 'https://kutanaschoolmuseum.ru'],
+        origin: [
+            'http://localhost:3000',
+            'https://kutanaschoolmuseum.ru',
+            'https://www.kutanaschoolmuseum.ru',
+        ],
         credentials: true,
         exposedHeaders: 'set-cookie',
     })
