@@ -18,7 +18,7 @@ async function bootstrap() {
         credentials: true,
         exposedHeaders: 'set-cookie',
     })
-    app.use(json({ limit: '50mb' }))
+    app.use(json())
     app.use(urlencoded({ extended: true, limit: '50mb' }))
     app.useGlobalPipes(
         new ValidationPipe({
