@@ -20,7 +20,6 @@ import * as Joi from 'joi';
             isGlobal: true,
             envFilePath: ['.env'],
             load: [configuration],
-
         }),
         DatabaseModule,
         CategoryModule,
