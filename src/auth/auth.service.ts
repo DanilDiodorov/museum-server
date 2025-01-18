@@ -95,7 +95,7 @@ export class AuthService {
 
         res.cookie(this.REFRESH_TOKEN_NAME, refreshToken, {
             httpOnly: true,
-            domain: process.env.NODE_ENV === 'development' ? 'localhost' : this.configService.get<string>('domain'),
+            domain: 'kutanaschoolmuseum.ru',
             expires: expiresIn,
             secure: true,
             sameSite: 'lax',
@@ -105,7 +105,7 @@ export class AuthService {
     removeRefreshTokenFromResponse(res: Response) {
         res.cookie(this.REFRESH_TOKEN_NAME, '', {
             httpOnly: true,
-            domain: process.env.NODE_ENV === 'development' ? 'localhost' : this.configService.get<string>('domain'),
+            domain: 'kutanaschoolmuseum.ru',
             expires: new Date(0),
             secure: true,
             sameSite: 'lax',
