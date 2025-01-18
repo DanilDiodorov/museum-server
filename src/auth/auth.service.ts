@@ -10,6 +10,7 @@ import { verify } from 'argon2'
 import { Response } from 'express'
 import { AuthDto } from './dto/auth.dto'
 import { UserService } from './user.service'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class AuthService {
@@ -19,6 +20,7 @@ export class AuthService {
     constructor(
         private jwt: JwtService,
         private userService: UserService,
+        private configService: ConfigService
     ) {}
 
     async login(dto: AuthDto) {
@@ -93,11 +95,9 @@ export class AuthService {
 
         res.cookie(this.REFRESH_TOKEN_NAME, refreshToken, {
             httpOnly: true,
-            domain: 'kutanaschoolmuseum.ru',
+            domain: process.env.NODE_ENV === 'development' ? 'localhost' : this.configService.get<string>('domain'),
             expires: expiresIn,
-            // true if production
             secure: true,
-            // lax if production
             sameSite: 'lax',
         })
     }
@@ -105,11 +105,9 @@ export class AuthService {
     removeRefreshTokenFromResponse(res: Response) {
         res.cookie(this.REFRESH_TOKEN_NAME, '', {
             httpOnly: true,
-            domain: 'kutanaschoolmuseum.ru',
+            domain: process.env.NODE_ENV === 'development' ? 'localhost' : this.configService.get<string>('domain'),
             expires: new Date(0),
-            // true if production
             secure: true,
-            // lax if production
             sameSite: 'lax',
         })
     }
